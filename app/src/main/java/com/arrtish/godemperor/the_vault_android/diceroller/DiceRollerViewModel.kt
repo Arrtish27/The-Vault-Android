@@ -1,4 +1,4 @@
-package com.arrtish.godemperor.the_vault_android
+package com.arrtish.godemperor.the_vault_android.diceroller
 
 import kotlin.random.Random
 

@@ -1,6 +1,5 @@
-package com.arrtish.godemperor.the_vault_android
+package com.arrtish.godemperor.the_vault_android.diceroller
 
-import android.media.Image
 import androidx.compose.ui.graphics.Color
 import com.arrtish.godemperor.the_vault_android.R
 
