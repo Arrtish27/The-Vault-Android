@@ -15,6 +15,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import com.arrtish.godemperor.the_vault_android.diceroller.DiceRollerActivity
 import com.arrtish.godemperor.the_vault_android.ui.theme.TheVaultAndroidTheme
 
 class MainActivity : ComponentActivity() {
@@ -66,6 +67,18 @@ fun MainView(modifier: Modifier = Modifier) {
                 .padding(vertical = 8.dp)
         ) {
             Text("Go to Dice Roller")
+        }
+
+        Button(
+            onClick = {
+                val intent = Intent(context, CharacterStatsActivity::class.java)
+                context.startActivity(intent)
+            },
+            modifier = Modifier
+                .fillMaxWidth()
+                .padding(vertical = 8.dp)
+        ) {
+            Text("Character Stat Layout")
         }
     }
 }
