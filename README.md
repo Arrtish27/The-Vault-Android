@@ -3,7 +3,6 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Privacy Policy</title>
 </head>
 <body style="font-family: sans-serif; padding: 2rem; max-width: 800px; margin: auto;">
   <h1>Privacy Policy for The Vault (D&D Dice Roller App)</h1>
