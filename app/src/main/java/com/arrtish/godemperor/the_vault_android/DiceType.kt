@@ -1,4 +1,4 @@
-package com.arrtish.godemperor.thevault
+package com.arrtish.godemperor.the_vault_android
 
 import android.media.Image
 import androidx.compose.ui.graphics.Color

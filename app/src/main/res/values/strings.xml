@@ -1,3 +1,5 @@
 <resources>
     <string name="app_name">The-Vault-Android</string>
+    <string name="title_activity_preset_dice_roller">PresetDiceRollerActivity</string>
+    <string name="title_activity_dice_roller">DiceRollerActivity</string>
 </resources>

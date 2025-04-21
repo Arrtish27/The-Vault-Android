@@ -1,4 +1,4 @@
-package com.arrtish.godemperor.thevault
+package com.arrtish.godemperor.the_vault_android
 
 import android.os.Bundle
 import androidx.activity.ComponentActivity
@@ -9,7 +9,9 @@ import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.background
 import androidx.compose.foundation.border
 import androidx.compose.foundation.clickable
+import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.shape.RoundedCornerShape
+import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.material3.*
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
@@ -23,6 +25,7 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.hapticfeedback.HapticFeedbackType
 import androidx.compose.ui.platform.LocalHapticFeedback
 import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
@@ -54,17 +57,33 @@ fun DiceRoller(modifier: Modifier = Modifier, viewModel: DiceRollerViewModel) {
 //    var diceRollMessage by remember { mutableStateOf("") }
     var diceRolled by remember { (mutableStateOf(DiceType.DICE_D20)) }
     val haptic = LocalHapticFeedback.current
+    var numberOfDiceInput by remember { mutableStateOf("1") }
 
     Column(
-        verticalArrangement = Arrangement.Center,
+        verticalArrangement = Arrangement.Top,
         horizontalAlignment = Alignment.CenterHorizontally,
         modifier = modifier.fillMaxSize().padding(30.dp)
     ) {
         Text(
-            text = "Click an Icon to roll that Die",
+            text = "Input an amount and press an Icon to roll that number of dice",
             fontSize = 20.sp,
             modifier = Modifier.padding(16.dp),
             textAlign = TextAlign.Center
+        )
+
+        TextField(
+            value = numberOfDiceInput,
+            onValueChange = { input ->
+                // Only allow digits
+                if (input.all { it.isDigit() }) {
+                    numberOfDiceInput = input
+                }
+            },
+            label = { Text("Enter amount") },
+            keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Number),
+            modifier = Modifier
+                .padding(8.dp)
+                .fillMaxWidth()
         )
 
         Row(
@@ -78,10 +97,16 @@ fun DiceRoller(modifier: Modifier = Modifier, viewModel: DiceRollerViewModel) {
 //                    .border(2.dp, Color.Black, RoundedCornerShape(8.dp))
                     .background(Color.Black)
                     .clickable(onClick = {
-                        haptic.performHapticFeedback(HapticFeedbackType.TextHandleMove)
-                        val result = viewModel.rollDice(DiceType.DICE_D4)
-                        diceRollResult = result.first.toString()
-                        diceRolled = result.second
+                        haptic.performHapticFeedback(HapticFeedbackType.LongPress)
+                        if (numberOfDiceInput.isNotEmpty() && numberOfDiceInput.all { it.isDigit() }) {
+                            val diceCount = numberOfDiceInput.toInt()
+                            val result = viewModel.rollDice(diceCount, DiceType.DICE_D4)
+                            diceRollResult = result.first.toString()
+                            diceRolled = result.second
+                        } else {
+                            // Handle invalid input, you can show an error message here if needed
+                            diceRollResult = "Invalid number of dice"
+                        }
                     })
             ) {
                 Image(
@@ -100,10 +125,16 @@ fun DiceRoller(modifier: Modifier = Modifier, viewModel: DiceRollerViewModel) {
 //                    .border(2.dp, Color.Black, RoundedCornerShape(8.dp))
                     .background(Color.Black)
                     .clickable(onClick = {
-                        haptic.performHapticFeedback(HapticFeedbackType.TextHandleMove)
-                        val result = viewModel.rollDice(DiceType.DICE_D6)
-                        diceRollResult = result.first.toString()
-                        diceRolled = result.second
+                        haptic.performHapticFeedback(HapticFeedbackType.LongPress)
+                        if (numberOfDiceInput.isNotEmpty() && numberOfDiceInput.all { it.isDigit() }) {
+                            val diceCount = numberOfDiceInput.toInt()
+                            val result = viewModel.rollDice(diceCount, DiceType.DICE_D6)
+                            diceRollResult = result.first.toString()
+                            diceRolled = result.second
+                        } else {
+                            // Handle invalid input, you can show an error message here if needed
+                            diceRollResult = "Invalid number of dice"
+                        }
                     })
             ) {
                 Image(
@@ -125,10 +156,16 @@ fun DiceRoller(modifier: Modifier = Modifier, viewModel: DiceRollerViewModel) {
 //                    .border(2.dp, Color.Black, RoundedCornerShape(8.dp))
                     .background(Color.Black)
                     .clickable(onClick = {
-                        haptic.performHapticFeedback(HapticFeedbackType.TextHandleMove)
-                        val result = viewModel.rollDice(DiceType.DICE_D8)
-                        diceRollResult = result.first.toString()
-                        diceRolled = result.second
+                        haptic.performHapticFeedback(HapticFeedbackType.LongPress)
+                        if (numberOfDiceInput.isNotEmpty() && numberOfDiceInput.all { it.isDigit() }) {
+                            val diceCount = numberOfDiceInput.toInt()
+                            val result = viewModel.rollDice(diceCount, DiceType.DICE_D8)
+                            diceRollResult = result.first.toString()
+                            diceRolled = result.second
+                        } else {
+                            // Handle invalid input, you can show an error message here if needed
+                            diceRollResult = "Invalid number of dice"
+                        }
                     })
             ) {
                 Image(
@@ -147,10 +184,16 @@ fun DiceRoller(modifier: Modifier = Modifier, viewModel: DiceRollerViewModel) {
 //                    .border(2.dp, Color.Black, RoundedCornerShape(8.dp))
                     .background(Color.Black)
                     .clickable(onClick = {
-                        haptic.performHapticFeedback(HapticFeedbackType.TextHandleMove)
-                        val result = viewModel.rollDice(DiceType.DICE_D10)
-                        diceRollResult = result.first.toString()
-                        diceRolled = result.second
+                        haptic.performHapticFeedback(HapticFeedbackType.LongPress)
+                        if (numberOfDiceInput.isNotEmpty() && numberOfDiceInput.all { it.isDigit() }) {
+                            val diceCount = numberOfDiceInput.toInt()
+                            val result = viewModel.rollDice(diceCount, DiceType.DICE_D10)
+                            diceRollResult = result.first.toString()
+                            diceRolled = result.second
+                        } else {
+                            // Handle invalid input, you can show an error message here if needed
+                            diceRollResult = "Invalid number of dice"
+                        }
                     })
             ) {
                 Image(
@@ -172,10 +215,16 @@ fun DiceRoller(modifier: Modifier = Modifier, viewModel: DiceRollerViewModel) {
 //                    .border(2.dp, Color.Black, RoundedCornerShape(8.dp))
                     .background(Color.Black)
                     .clickable(onClick = {
-                        haptic.performHapticFeedback(HapticFeedbackType.TextHandleMove)
-                        val result = viewModel.rollDice(DiceType.DICE_D12)
-                        diceRollResult = result.first.toString()
-                        diceRolled = result.second
+                        haptic.performHapticFeedback(HapticFeedbackType.LongPress)
+                        if (numberOfDiceInput.isNotEmpty() && numberOfDiceInput.all { it.isDigit() }) {
+                            val diceCount = numberOfDiceInput.toInt()
+                            val result = viewModel.rollDice(diceCount, DiceType.DICE_D12)
+                            diceRollResult = result.first.toString()
+                            diceRolled = result.second
+                        } else {
+                            // Handle invalid input, you can show an error message here if needed
+                            diceRollResult = "Invalid number of dice"
+                        }
                     })
             ) {
                 Image(
@@ -194,10 +243,16 @@ fun DiceRoller(modifier: Modifier = Modifier, viewModel: DiceRollerViewModel) {
 //                    .border(2.dp, Color.Black, RoundedCornerShape(8.dp))
                     .background(Color.Black)
                     .clickable(onClick = {
-                        haptic.performHapticFeedback(HapticFeedbackType.TextHandleMove)
-                        val result = viewModel.rollDice(DiceType.DICE_D20)
-                        diceRollResult = result.first.toString()
-                        diceRolled = result.second
+                        haptic.performHapticFeedback(HapticFeedbackType.LongPress)
+                        if (numberOfDiceInput.isNotEmpty() && numberOfDiceInput.all { it.isDigit() }) {
+                            val diceCount = numberOfDiceInput.toInt()
+                            val result = viewModel.rollDice(diceCount, DiceType.DICE_D20)
+                            diceRollResult = result.first.toString()
+                            diceRolled = result.second
+                        } else {
+                            // Handle invalid input, you can show an error message here if needed
+                            diceRollResult = "Invalid number of dice"
+                        }
                     })
             ) {
                 Image(
@@ -211,16 +266,37 @@ fun DiceRoller(modifier: Modifier = Modifier, viewModel: DiceRollerViewModel) {
         Spacer(modifier = Modifier.height(24.dp))
 
         Text(
-            text = "${diceRolled.printName} Rolled ",
+            text = "You rolled a ${diceRolled.printName}",
             color = diceRolled.color,
             fontSize = 20.sp,
             modifier = Modifier.padding(16.dp)
         )
-        Text(
-            text = "Result: ${diceRollResult}",
-            fontSize = 20.sp,
-            modifier = Modifier.padding(16.dp)
-        )
+
+        if (numberOfDiceInput.isNotEmpty() && numberOfDiceInput.toInt() > 1) {
+            // If more than 1 die, show individual results and total sum
+            val resultsList = diceRollResult.split(", ")
+            val sum = resultsList.sumOf { it.toIntOrNull() ?: 0 }
+            Text(
+                text = "Rolled Dice: ${resultsList.joinToString(", ")}",
+                fontSize = 18.sp,
+                modifier = Modifier.padding(16.dp)
+            )
+            Text(
+                text = "Total Sum: $sum",
+                fontSize = 20.sp,
+                color = diceRolled.color,
+                modifier = Modifier.padding(16.dp)
+            )
+        } else {
+            // For single die, just show the result
+            Text(
+                text = "Result: $diceRollResult",
+                fontSize = 20.sp,
+                color = diceRolled.color,
+                modifier = Modifier.padding(16.dp)
+            )
+        }
+
 
     }
 }
