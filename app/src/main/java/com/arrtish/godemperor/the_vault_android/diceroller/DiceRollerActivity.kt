@@ -23,6 +23,7 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import androidx.lifecycle.viewmodel.compose.viewModel
 import com.arrtish.godemperor.the_vault_android.ui.theme.TheVaultAndroidTheme
 
 class DiceRollerActivity : ComponentActivity() {
@@ -35,7 +36,7 @@ class DiceRollerActivity : ComponentActivity() {
                     DiceRoller(
 //                        name = "Android",
                         modifier = Modifier.padding(innerPadding),
-                        viewModel = DiceRollerViewModel()
+
                     )
                 }
             }
@@ -44,8 +45,9 @@ class DiceRollerActivity : ComponentActivity() {
 }
 
 @Composable
-fun DiceRoller(modifier: Modifier = Modifier, viewModel: DiceRollerViewModel) {
+fun DiceRoller(modifier: Modifier = Modifier) {
 
+    val viewModel: DiceRollerViewModel = viewModel()
     var diceRollResult by remember { mutableStateOf("") }
 //    var diceRollMessage by remember { mutableStateOf("") }
     var diceRolled by remember { (mutableStateOf(DiceType.DICE_D20)) }
@@ -296,6 +298,6 @@ fun DiceRoller(modifier: Modifier = Modifier, viewModel: DiceRollerViewModel) {
 @Composable
 fun DiceRollerPreview() {
     TheVaultAndroidTheme {
-        DiceRoller(modifier = Modifier, viewModel = DiceRollerViewModel())
+        DiceRoller(modifier = Modifier)
     }
 }

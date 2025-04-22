@@ -1,8 +1,9 @@
 package com.arrtish.godemperor.the_vault_android.diceroller
 
+import androidx.lifecycle.ViewModel
 import kotlin.random.Random
 
-class DiceRollerViewModel {
+class DiceRollerViewModel : ViewModel() {
 
     fun rollDice(numberOfDice: Int, diceType: DiceType): Pair<Any, DiceType> {
         if (numberOfDice <= 0) {

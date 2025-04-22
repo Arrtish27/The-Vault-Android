@@ -33,8 +33,10 @@ class CharacterStatsActivity : ComponentActivity() {
                     }
                 ) { innerPadding ->
                     CharacterSheetView(
+                        characterId = intent.getStringExtra("characterId").toString(),
                         modifier = Modifier.padding(innerPadding),
                         viewModel =  CharacterStatsViewModel()
+
                     )
                 }
             }
@@ -43,12 +45,13 @@ class CharacterStatsActivity : ComponentActivity() {
 }
 
 @Composable
-fun CharacterSheetView(modifier: Modifier, viewModel: CharacterStatsViewModel) {
+fun CharacterSheetView(characterId: String, modifier: Modifier, viewModel: CharacterStatsViewModel) {
 
     val buttonSize = 135.dp
     var currentHitPoints by remember { mutableStateOf("") }
     var maxHitPoints by remember { mutableStateOf("") }
     val haptic = LocalHapticFeedback.current
+    var characterId = characterId
 
     Column(
         modifier = modifier
@@ -81,7 +84,7 @@ fun CharacterSheetView(modifier: Modifier, viewModel: CharacterStatsViewModel) {
                     .weight(1f)
                     .padding(start = 16.dp)
             ) {
-                Text(text = "Name: Arannis", fontSize = 20.sp, fontWeight = FontWeight.Bold)
+                Text(text = "Name: ${characterId}", fontSize = 20.sp, fontWeight = FontWeight.Bold)
                 Text(text = "Level: 5", fontSize = 16.sp)
                 Text(text = "Race: Elf", fontSize = 16.sp)
             }
@@ -166,6 +169,6 @@ fun SquareButton(label: String, size: Dp, onClick: () -> Unit) {
 @Composable
 fun CharacterStatsActivityPreview() {
     TheVaultAndroidTheme {
-        CharacterSheetView(modifier = Modifier, viewModel =  CharacterStatsViewModel())
+        CharacterSheetView(characterId = "", modifier = Modifier, viewModel =  CharacterStatsViewModel())
     }
 }
