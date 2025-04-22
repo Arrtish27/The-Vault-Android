@@ -9,6 +9,7 @@ import androidx.compose.foundation.layout.*
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Email
 import androidx.compose.material.icons.filled.Home
+import androidx.compose.material.icons.filled.Person
 import androidx.compose.material3.Button
 import androidx.compose.material3.Icon
 import androidx.compose.material3.NavigationBar
@@ -22,6 +23,7 @@ import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
@@ -35,6 +37,9 @@ import com.arrtish.godemperor.the_vault_android.diceroller.DiceRollerActivity
 import com.arrtish.godemperor.the_vault_android.ui.theme.TheVaultAndroidTheme
 
 class MainActivity : ComponentActivity() {
+
+
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         enableEdgeToEdge()
@@ -104,7 +109,7 @@ fun MyBottomAppBar(navController: NavHostController) {
                         // If the item is "home", show the Home icon.
                         "dice" -> Icon(Icons.Filled.Home, contentDescription = "Dice")
                         // If the item is "reports", show the Email icon.
-                        "gallery" -> Icon(Icons.Filled.Email, contentDescription = "Gallery")
+                        "gallery" -> Icon(Icons.Filled.Person, contentDescription = "Gallery")
                     }
                 },
                 // Display the item's name as the label.
@@ -124,59 +129,59 @@ fun MyBottomAppBar(navController: NavHostController) {
 }
 
 
-@Composable
-fun MainView(modifier: Modifier = Modifier) {
-    val context = LocalContext.current
-
-    Column(
-        modifier = modifier
-            .fillMaxSize()
-            .padding(16.dp),
-        verticalArrangement = Arrangement.Center,
-        horizontalAlignment = Alignment.CenterHorizontally
-    ) {
-        Button(
-            onClick = {
-                val intent = Intent(context, DiceRollerActivity::class.java)
-                context.startActivity(intent)
-            },
-            modifier = Modifier
-                .fillMaxWidth()
-                .padding(vertical = 8.dp)
-        ) {
-            Text("Preset Rollers")
-        }
-
-        Button(
-            onClick = {
-                val intent = Intent(context, DiceRollerActivity::class.java)
-                context.startActivity(intent)
-            },
-            modifier = Modifier
-                .fillMaxWidth()
-                .padding(vertical = 8.dp)
-        ) {
-            Text("Go to Dice Roller")
-        }
-
-        Button(
-            onClick = {
-                val intent = Intent(context, CharacterGalleryActivity::class.java)
-                context.startActivity(intent)
-            },
-            modifier = Modifier
-                .fillMaxWidth()
-                .padding(vertical = 8.dp)
-        ) {
-            Text("Character Stat Layout")
-        }
-    }
-}
-
-@Preview(showBackground = true)
-@Composable
-fun MainViewPreview() {
-    TheVaultAndroidTheme {
-        MainView()
-    }
-}
+//@Composable
+//fun MainView(modifier: Modifier = Modifier) {
+//    val context = LocalContext.current
+//
+//    Column(
+//        modifier = modifier
+//            .fillMaxSize()
+//            .padding(16.dp),
+//        verticalArrangement = Arrangement.Center,
+//        horizontalAlignment = Alignment.CenterHorizontally
+//    ) {
+//        Button(
+//            onClick = {
+//                val intent = Intent(context, DiceRollerActivity::class.java)
+//                context.startActivity(intent)
+//            },
+//            modifier = Modifier
+//                .fillMaxWidth()
+//                .padding(vertical = 8.dp)
+//        ) {
+//            Text("Preset Rollers")
+//        }
+//
+//        Button(
+//            onClick = {
+//                val intent = Intent(context, DiceRollerActivity::class.java)
+//                context.startActivity(intent)
+//            },
+//            modifier = Modifier
+//                .fillMaxWidth()
+//                .padding(vertical = 8.dp)
+//        ) {
+//            Text("Go to Dice Roller")
+//        }
+//
+//        Button(
+//            onClick = {
+//                val intent = Intent(context, CharacterGalleryActivity::class.java)
+//                context.startActivity(intent)
+//            },
+//            modifier = Modifier
+//                .fillMaxWidth()
+//                .padding(vertical = 8.dp)
+//        ) {
+//            Text("Character Stat Layout")
+//        }
+//    }
+//}
+//
+//@Preview(showBackground = true)
+//@Composable
+//fun MainViewPreview() {
+//    TheVaultAndroidTheme {
+//        MainView()
+//    }
+//}
