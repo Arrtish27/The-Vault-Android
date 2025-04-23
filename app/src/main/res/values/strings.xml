@@ -4,4 +4,6 @@
     <string name="title_activity_dice_roller">DiceRollerActivity</string>
     <string name="title_activity_character_stats">CharacterStatsActivity</string>
     <string name="title_activity_character_gallery">CharacterGalleryActivity</string>
+    <string name="title_activity_login">LoginActivity</string>
+    <string name="title_activity_home">HomeActivity</string>
 </resources>
