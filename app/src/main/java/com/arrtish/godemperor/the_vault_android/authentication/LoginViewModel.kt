@@ -8,6 +8,7 @@ import androidx.navigation.NavController
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.launch
+import org.mindrot.jbcrypt.BCrypt
 
 class LoginViewModel(application: Application) : AndroidViewModel(application) {
     private val userDao = UserDatabase.getDatabase(application).userDao()
@@ -15,11 +16,17 @@ class LoginViewModel(application: Application) : AndroidViewModel(application) {
     private val _loginResult = MutableStateFlow<Pair<Boolean, Boolean>?>(null)
     val loginResult: StateFlow<Pair<Boolean, Boolean>?> = _loginResult
 
-    fun login(email: String, password: String) {
+    fun login(email: String, phoneNumber: String, password: String) {
         viewModelScope.launch {
-            val user = userDao.getUser(email, password)
+            val user = userDao.getUserByEmailAndPhone(email, phoneNumber)
             if (user != null) {
-                _loginResult.value = true to false // Login success, already registered user
+                // Check if the entered password matches the stored hashed password
+                val isPasswordCorrect = checkPassword(password, user.userPassword) // assuming `user.password` stores the hashed password
+                if (isPasswordCorrect) {
+                    _loginResult.value = true to true // Login success, correct password
+                } else {
+                    _loginResult.value = false to true // Login failed, incorrect password
+                }
             } else {
                 _loginResult.value = false to false // Login failed, user not found
             }
@@ -37,7 +44,7 @@ class LoginViewModel(application: Application) : AndroidViewModel(application) {
     ) {
         viewModelScope.launch {
             // Check if user already exists
-            val existingUser = userDao.getUserByEmail(email)
+            val existingUser = userDao.getUserByEmailAndPhone(email, phoneNumber)
             if (existingUser != null) {
                 _loginResult.value = false to true // User already exists
                 // Show a toast message
@@ -46,7 +53,7 @@ class LoginViewModel(application: Application) : AndroidViewModel(application) {
                 // Check if passwords match
                 if (confirmPassword == password) {
                     // Insert user into the database
-                    userDao.insert(User(userName = name, userEmail = email, userPassword = password, userPhoneNumber = phoneNumber))
+                    userDao.insert(User(userName = name, userEmail = email, userPassword = hashPassword(password), userPhoneNumber = phoneNumber))
                     _loginResult.value = true to true // Sign-up success
                     // Show a success toast
                     Toast.makeText(context, "Sign-up successful!", Toast.LENGTH_SHORT).show()
@@ -68,6 +75,15 @@ class LoginViewModel(application: Application) : AndroidViewModel(application) {
     fun clearLoginResult() {
         _loginResult.value = null
     }
+
+    fun hashPassword(password: String): String {
+        return BCrypt.hashpw(password, BCrypt.gensalt())
+    }
+
+    fun checkPassword(password: String, hashedPassword: String): Boolean {
+        return BCrypt.checkpw(password, hashedPassword)
+    }
+
 }
 
 class LoginViewModelFactory(private val context: Context) : ViewModelProvider.Factory {

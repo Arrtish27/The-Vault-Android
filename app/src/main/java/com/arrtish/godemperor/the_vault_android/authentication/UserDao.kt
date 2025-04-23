@@ -5,7 +5,6 @@ import androidx.room.Delete
 import androidx.room.Insert
 import androidx.room.OnConflictStrategy
 import androidx.room.Query
-import com.arrtish.godemperor.the_vault_android.Character
 
 @Dao
 interface UserDao {
@@ -21,8 +20,8 @@ interface UserDao {
     @Query("SELECT * FROM users WHERE userId = :id")
     suspend fun getUserById(id: String): User?
 
-    @Query("SELECT * FROM users WHERE userEmail = :email")
-    suspend fun getUserByEmail(email: String): User?
+    @Query("SELECT * FROM users WHERE userEmail = :email AND userPhoneNumber = :phoneNumber LIMIT 1")
+    suspend fun getUserByEmailAndPhone(email: String, phoneNumber: String): User?
 
     @Delete
     suspend fun delete(user: User)
