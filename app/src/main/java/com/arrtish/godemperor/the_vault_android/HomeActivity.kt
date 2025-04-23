@@ -11,8 +11,10 @@ import androidx.compose.material.icons.filled.Person
 import androidx.compose.material3.*
 import androidx.compose.runtime.*
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.tooling.preview.Preview
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.*
+import com.arrtish.godemperor.the_vault_android.authentication.SignUpView
 import com.arrtish.godemperor.the_vault_android.diceroller.DiceRoller
 import com.arrtish.godemperor.the_vault_android.ui.theme.TheVaultAndroidTheme
 
@@ -103,5 +105,13 @@ fun MyBottomAppBar(navController: NavHostController) {
                 }
             )
         }
+    }
+}
+
+@Preview(showBackground = true)
+@Composable
+fun HomeActivityPreview() {
+    TheVaultAndroidTheme {
+        HomeActivity()
     }
 }

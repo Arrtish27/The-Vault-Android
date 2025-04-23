@@ -7,7 +7,8 @@ import androidx.room.PrimaryKey
 data class User(
     @PrimaryKey(autoGenerate = true) val userId: Int = 0,
     //need to change to foreign key
-//    var userName: String,
+    var userName: String,
     var userEmail: String,
     var userPassword: String,
+    var userPhoneNumber: String
 )

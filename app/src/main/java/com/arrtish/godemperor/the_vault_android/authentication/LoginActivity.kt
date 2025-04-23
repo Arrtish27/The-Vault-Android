@@ -17,6 +17,7 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.core.content.ContextCompat.startActivity
 import androidx.lifecycle.viewmodel.compose.viewModel
+import androidx.navigation.NavController
 import com.arrtish.godemperor.the_vault_android.HomeActivity
 import com.arrtish.godemperor.the_vault_android.ui.theme.TheVaultAndroidTheme
 
@@ -24,19 +25,20 @@ class LoginActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         enableEdgeToEdge()
-        setContent {
-            TheVaultAndroidTheme {
-                Scaffold(modifier = Modifier.fillMaxSize()) { innerPadding ->
-                    LoginView(modifier = Modifier.padding(innerPadding))
-                }
-            }
-        }
+//        setContent {
+//            TheVaultAndroidTheme {
+//                Scaffold(modifier = Modifier.fillMaxSize()) { innerPadding ->
+//                    LoginView(modifier = Modifier.padding(innerPadding))
+//                }
+//            }
+//        }
     }
 }
 
 @Composable
 fun LoginView(
     modifier: Modifier = Modifier,
+    navController: NavController,
     viewModel: LoginViewModel = viewModel(factory = LoginViewModelFactory(LocalContext.current))
 ) {
     var email by remember { mutableStateOf("") }
@@ -101,13 +103,22 @@ fun LoginView(
         ) {
             Text("Login")
         }
+
+        Button(
+            onClick = {
+                navController.navigate("signup")
+            },
+            modifier = Modifier.fillMaxWidth()
+        ) {
+            Text("Create New Account")
+        }
     }
 }
 
-@Preview(showBackground = true)
-@Composable
-fun LoginPreview() {
-    TheVaultAndroidTheme {
-        LoginView()
-    }
-}
+//@Preview(showBackground = true)
+//@Composable
+//fun LoginPreview() {
+//    TheVaultAndroidTheme {
+//        LoginView()
+//    }
+//}

@@ -2,7 +2,9 @@ package com.arrtish.godemperor.the_vault_android.authentication
 
 import android.app.Application
 import android.content.Context
+import android.widget.Toast
 import androidx.lifecycle.*
+import androidx.navigation.NavController
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.launch
@@ -17,10 +19,48 @@ class LoginViewModel(application: Application) : AndroidViewModel(application) {
         viewModelScope.launch {
             val user = userDao.getUser(email, password)
             if (user != null) {
-                _loginResult.value = true to false
+                _loginResult.value = true to false // Login success, already registered user
             } else {
-                userDao.insert(User(userEmail = email, userPassword = password))
-                _loginResult.value = true to true
+                _loginResult.value = false to false // Login failed, user not found
+            }
+        }
+    }
+
+    fun signUp(
+        name: String,
+        email: String,
+        confirmPassword: String,
+        password: String,
+        phoneNumber: String,
+        navController: NavController,
+        context: Context // To show Toast messages
+    ) {
+        viewModelScope.launch {
+            // Check if user already exists
+            val existingUser = userDao.getUserByEmail(email)
+            if (existingUser != null) {
+                _loginResult.value = false to true // User already exists
+                // Show a toast message
+                Toast.makeText(context, "User with this email already exists.", Toast.LENGTH_SHORT).show()
+            } else {
+                // Check if passwords match
+                if (confirmPassword == password) {
+                    // Insert user into the database
+                    userDao.insert(User(userName = name, userEmail = email, userPassword = password, userPhoneNumber = phoneNumber))
+                    _loginResult.value = true to true // Sign-up success
+                    // Show a success toast
+                    Toast.makeText(context, "Sign-up successful!", Toast.LENGTH_SHORT).show()
+
+                    // Navigate to the login screen
+                    navController.navigate("login") {
+                        // Clear the back stack to prevent the user from navigating back to the sign-up page
+                        popUpTo("signUp") { inclusive = true }
+                    }
+                } else {
+                    _loginResult.value = false to false // Passwords do not match
+                    // Show a toast message
+                    Toast.makeText(context, "Passwords do not match.", Toast.LENGTH_SHORT).show()
+                }
             }
         }
     }

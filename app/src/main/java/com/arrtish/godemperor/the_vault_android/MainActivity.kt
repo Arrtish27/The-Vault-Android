@@ -33,6 +33,8 @@ import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
 import com.arrtish.godemperor.the_vault_android.authentication.LoginActivity
+import com.arrtish.godemperor.the_vault_android.authentication.LoginView
+import com.arrtish.godemperor.the_vault_android.authentication.SignUpView
 import com.arrtish.godemperor.the_vault_android.diceroller.DiceRoller
 import com.arrtish.godemperor.the_vault_android.diceroller.DiceRollerActivity
 import com.arrtish.godemperor.the_vault_android.ui.theme.TheVaultAndroidTheme
@@ -42,7 +44,24 @@ class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         enableEdgeToEdge()
-        val intent = Intent(this, LoginActivity::class.java)
-        startActivity(intent)
+        setContent {
+            TheVaultAndroidTheme {
+                Scaffold(modifier = Modifier.fillMaxSize()) { innerPadding ->
+                    AppNavigation(modifier = Modifier.padding(innerPadding))
+                }
+            }
+        }
     }
 }
+
+@Composable
+fun AppNavigation(modifier: Modifier) {
+    val navController = rememberNavController()
+
+    // Define the NavHost with the start destination and routes
+    NavHost(navController = navController, startDestination = "login") {
+        composable("login") { LoginView(modifier,navController) }
+        composable("signup") { SignUpView(modifier,navController) }
+    }
+}
+
