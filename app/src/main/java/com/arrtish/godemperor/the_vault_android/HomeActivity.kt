@@ -1,5 +1,6 @@
 package com.arrtish.godemperor.the_vault_android
 
+import android.content.Intent
 import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
@@ -7,19 +8,21 @@ import androidx.activity.enableEdgeToEdge
 import androidx.compose.foundation.layout.*
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Home
+import androidx.compose.material.icons.filled.MoreVert
 import androidx.compose.material.icons.filled.Person
 import androidx.compose.material3.*
 import androidx.compose.runtime.*
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.*
-import com.arrtish.godemperor.the_vault_android.authentication.SignUpView
 import com.arrtish.godemperor.the_vault_android.diceroller.DiceRoller
 import com.arrtish.godemperor.the_vault_android.ui.theme.TheVaultAndroidTheme
+import androidx.compose.material3.DropdownMenuItem
+
 
 class HomeActivity : ComponentActivity() {
-
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         enableEdgeToEdge()
@@ -27,6 +30,9 @@ class HomeActivity : ComponentActivity() {
             TheVaultAndroidTheme {
                 val navController: NavHostController = rememberNavController()
                 Scaffold(
+                    topBar = {
+                        MyTopAppBar(navController)
+                    },
                     modifier = Modifier.fillMaxSize(),
                     bottomBar = {
                         MyBottomAppBar(navController)
@@ -41,6 +47,45 @@ class HomeActivity : ComponentActivity() {
             }
         }
     }
+}
+
+@OptIn(ExperimentalMaterial3Api::class)
+@Composable
+fun MyTopAppBar(navController: NavHostController) {
+    // Track the current route
+    val currentRoute = navController.currentBackStackEntryAsState().value?.destination?.route ?: "Home"
+
+    // State to manage the menu's visibility
+    var expanded by remember { mutableStateOf(false) }
+
+    // Get context from LocalContext
+    val context = LocalContext.current
+
+    TopAppBar(
+        title = { Text(currentRoute.replaceFirstChar { it.uppercase() }) }, // Display the route name as title
+        actions = {
+            IconButton(onClick = { expanded = !expanded }) {
+                Icon(Icons.Filled.MoreVert, contentDescription = "More options")
+            }
+
+            // Dropdown menu for the log out option
+            DropdownMenu(
+                expanded = expanded,
+                onDismissRequest = { expanded = false }
+            ) {
+                DropdownMenuItem(
+                    onClick = {
+                        val intent = Intent(context, MainActivity::class.java).apply {
+                            flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
+                        }
+                        context.startActivity(intent)
+                        expanded = false
+                    },
+                    text = { Text("Log out") }
+                )
+            }
+        }
+    )
 }
 
 // MyNavHost Composable function for navigation within the app

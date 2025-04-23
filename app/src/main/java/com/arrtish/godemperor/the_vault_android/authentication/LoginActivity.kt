@@ -27,13 +27,6 @@ class LoginActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         enableEdgeToEdge()
-//        setContent {
-//            TheVaultAndroidTheme {
-//                Scaffold(modifier = Modifier.fillMaxSize()) { innerPadding ->
-//                    LoginView(modifier = Modifier.padding(innerPadding))
-//                }
-//            }
-//        }
     }
 }
 
@@ -53,14 +46,16 @@ fun LoginView(
         loginResult?.let { (success, isNewUser) ->
             if (success) {
                 if (isNewUser){
-                    val msg =  "New account created!"
+                    val msg =  "Welcome to the Vault"
                     Toast.makeText(context, msg, Toast.LENGTH_SHORT).show()
                 } else {
                     val msg =  "Welcome back!"
                     Toast.makeText(context, msg, Toast.LENGTH_SHORT).show()
-                    val intent = Intent(context, HomeActivity::class.java)
-                    context.startActivity(intent)
                 }
+                val intent = Intent(context, HomeActivity::class.java).apply {
+                    flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
+                }
+                context.startActivity(intent)
             } else {
                 Toast.makeText(context, "Login failed", Toast.LENGTH_SHORT).show()
             }
@@ -110,7 +105,7 @@ fun LoginView(
 
         Button(
             onClick = {
-                viewModel.login(email.trim(), password, phoneNumber)
+                viewModel.login(email.trim(), phoneNumber, password)
             },
             modifier = Modifier.fillMaxWidth()
         ) {

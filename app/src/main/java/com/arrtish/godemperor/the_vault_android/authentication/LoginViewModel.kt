@@ -2,6 +2,7 @@ package com.arrtish.godemperor.the_vault_android.authentication
 
 import android.app.Application
 import android.content.Context
+import android.util.Log
 import android.widget.Toast
 import androidx.lifecycle.*
 import androidx.navigation.NavController
@@ -18,7 +19,7 @@ class LoginViewModel(application: Application) : AndroidViewModel(application) {
 
     fun login(email: String, phoneNumber: String, password: String) {
         viewModelScope.launch {
-            val user = userDao.getUserByEmailAndPhone(email, phoneNumber)
+            val user = userDao.getUserByEmailAndPhone(email.trim(), phoneNumber.trim())
             if (user != null) {
                 // Check if the entered password matches the stored hashed password
                 val isPasswordCorrect = checkPassword(password, user.userPassword) // assuming `user.password` stores the hashed password
