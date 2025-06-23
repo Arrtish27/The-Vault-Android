@@ -1,7 +1,6 @@
-package com.arrtish.godemperor.the_vault_android
+package com.arrtish.godemperor.the_vault_android.characterview
 
 import androidx.compose.foundation.shape.CutCornerShape
-import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.ArrowBack
 import androidx.compose.runtime.Composable
@@ -12,7 +11,7 @@ import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
-import com.arrtish.godemperor.the_vault_android.CharacterStatsTopAppBar
+import com.arrtish.godemperor.the_vault_android.R
 import com.arrtish.godemperor.the_vault_android.ui.theme.TheVaultAndroidTheme
 
 @OptIn(ExperimentalMaterial3Api::class)
