@@ -1,10 +1,6 @@
 package com.arrtish.godemperor.the_vault_android.diceroller
 
-import android.os.Bundle
 import android.util.Log
-import androidx.activity.ComponentActivity
-import androidx.activity.compose.setContent
-import androidx.activity.enableEdgeToEdge
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.background
@@ -23,31 +19,16 @@ import androidx.compose.ui.platform.LocalHapticFeedback
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.text.style.TextAlign
-import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.lifecycle.viewmodel.compose.viewModel
-import com.arrtish.godemperor.the_vault_android.ui.theme.TheVaultAndroidTheme
-
-class DiceRollerActivity : ComponentActivity() {
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        enableEdgeToEdge()
-        setContent {
-            TheVaultAndroidTheme {
-                Scaffold(modifier = Modifier.fillMaxSize()) { innerPadding ->
-                    DiceRoller(
-                        modifier = Modifier.padding(innerPadding),
-
-                    )
-                }
-            }
-        }
-    }
-}
+import androidx.navigation.NavController
 
 @Composable
-fun DiceRoller(modifier: Modifier = Modifier) {
+fun DiceRoller(
+    modifier: Modifier,
+    navController: NavController,
+) {
     val viewModel: DiceRollerViewModel = viewModel()
     var diceRollResult by remember { mutableStateOf<Pair<Any, Int>?>(null) }
     var diceRolled by remember { mutableStateOf(DiceType.DICE_D20) }
@@ -175,14 +156,5 @@ fun DiceButton(type: DiceType, onClick: () -> Unit) {
             contentDescription = type.printName,
             modifier = Modifier.size(80.dp)
         )
-    }
-}
-
-
-@Preview(showBackground = true)
-@Composable
-fun DiceRollerPreview() {
-    TheVaultAndroidTheme {
-        DiceRoller(modifier = Modifier)
     }
 }

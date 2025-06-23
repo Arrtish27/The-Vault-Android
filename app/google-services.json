@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "135038543970",
+    "project_id": "thevaultdnd",
+    "storage_bucket": "thevaultdnd.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:135038543970:android:e78f5abb1f98a35029093b",
+        "android_client_info": {
+          "package_name": "com.arrtish.godemperor.the_vault_android"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "135038543970-pmd5mlp6e7ah6d7gl13tadkf1hpm3ff4.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCD9K6v69UI_Q9HyEdHl7eHLR1_FTBuY5Y"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "135038543970-pmd5mlp6e7ah6d7gl13tadkf1hpm3ff4.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

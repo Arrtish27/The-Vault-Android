@@ -1,11 +1,6 @@
 package com.arrtish.godemperor.the_vault_android
 
 import android.content.Intent
-import android.os.Bundle
-import androidx.activity.ComponentActivity
-import androidx.activity.compose.setContent
-import androidx.activity.enableEdgeToEdge
-import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
@@ -18,35 +13,35 @@ import androidx.compose.foundation.lazy.grid.GridCells
 import androidx.compose.foundation.lazy.grid.LazyVerticalGrid
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.Button
-import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.LocalContext
-import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
-import com.arrtish.godemperor.the_vault_android.ui.theme.TheVaultAndroidTheme
+import androidx.navigation.NavController
 
-class CharacterGalleryActivity : ComponentActivity() {
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        enableEdgeToEdge()
-        setContent {
-            TheVaultAndroidTheme {
-                Scaffold(modifier = Modifier.fillMaxSize()) { innerPadding ->
-                    CharacterGalleryView(
-                        modifier = Modifier.padding(innerPadding)
-                    )
-                }
-            }
-        }
-    }
-}
+//class CharacterGalleryActivity : ComponentActivity() {
+//    override fun onCreate(savedInstanceState: Bundle?) {
+//        super.onCreate(savedInstanceState)
+//        enableEdgeToEdge()
+//        setContent {
+//            TheVaultAndroidTheme {
+//                Scaffold(modifier = Modifier.fillMaxSize()) { innerPadding ->
+//                    CharacterGalleryView(
+//                        modifier = Modifier.padding(innerPadding)
+//                    )
+//                }
+//            }
+//        }
+//    }
+//}
+
 @Composable
 fun CharacterGalleryView(
-    modifier: Modifier = Modifier
+    modifier: Modifier,
+    navController: NavController,
 ) {
     val context = LocalContext.current
     val characterIdList = listOf("001", "002", "003", "003", "003", "003", "003", "003", "003")
@@ -93,15 +88,5 @@ fun CharacterGalleryView(
                 }
             }
         }
-    }
-}
-
-@Preview(showBackground = true)
-@Composable
-fun CharacterGalleryViewPreview() {
-    TheVaultAndroidTheme {
-        CharacterGalleryView(
-            modifier = Modifier
-        )
     }
 }
