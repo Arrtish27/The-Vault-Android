@@ -6,6 +6,7 @@ import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
+import androidx.compose.foundation.lazy.LazyRow
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.foundation.verticalScroll
@@ -97,23 +98,54 @@ fun DiceRoller(
         )
 
         if (numberOfDiceInput.isNotEmpty() && numberOfDiceInput.toInt() > 1) {
-            // If more than 1 die, show individual results and total sum
             diceRollResult?.let { (rolled, sum) ->
                 if (rolled is List<*>) {
-                    // Handle the case where multiple dice were rolled (List<Int>)
                     val resultsList = rolled.filterIsInstance<Int>()
-                    val totalSum = resultsList.sum()
 
                     Text(
-                        text = "Rolled Dice: ${resultsList.joinToString(", ")}",
+                        text = "Individual Rolls:",
                         fontSize = 18.sp,
-                        modifier = Modifier.padding(16.dp)
+                        modifier = Modifier.padding(start = 16.dp, top = 16.dp, bottom = 8.dp)
                     )
+
+                    LazyRow(
+                        horizontalArrangement = Arrangement.spacedBy(12.dp),
+                        modifier = Modifier
+                            .fillMaxWidth()
+                            .padding(horizontal = 16.dp)
+                    ) {
+                        items(resultsList.size) { index ->
+                            Surface(
+                                color = diceRolled.color.copy(alpha = 0.2f),
+                                shape = MaterialTheme.shapes.medium,
+                                tonalElevation = 4.dp,
+                                modifier = Modifier
+                                    .size(60.dp),
+                            ) {
+                                Box(
+                                    contentAlignment = Alignment.Center,
+                                    modifier = Modifier.fillMaxSize()
+                                ) {
+                                    Text(
+                                        text = resultsList[index].toString(),
+                                        fontSize = 20.sp,
+                                        color = diceRolled.color,
+                                        textAlign = TextAlign.Center
+                                    )
+                                }
+                            }
+                        }
+                    }
+
+                    Spacer(modifier = Modifier.height(16.dp))
+
                     Text(
-                        text = "Total Sum: $totalSum",
-                        fontSize = 20.sp,
+                        text = "Total: ${resultsList.sum()}",
+                        fontSize = 22.sp,
                         color = diceRolled.color,
-                        modifier = Modifier.padding(16.dp)
+                        modifier = Modifier
+                            .align(Alignment.CenterHorizontally)
+                            .padding(8.dp)
                     )
                 }
             }

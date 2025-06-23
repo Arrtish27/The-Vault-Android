@@ -1,4 +1,7 @@
 package com.arrtish.godemperor.the_vault_android.appdb.user
 
-class UserDao {
+import androidx.room.Dao
+
+@Dao
+abstract class UserDao {
 }
